@@ -23,7 +23,7 @@ The original need for this kind of library came from the need to generate differ
 
 At the time of starting of making this library, not complete existing similar library was found.
 
-`This is **not** yet-another-Markdown-to-HTML conversion tool.`
+<mark> This is **not** yet-another-Markdown-to-HTML conversion tool.</mark>
 
 
 ## Quick Install
