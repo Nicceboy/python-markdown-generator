@@ -28,12 +28,22 @@ jobs:
             - v1-dependencies-
 
       - run:
+         name: install dependencies
+         command: |
+           python3 -m venv venv
+           . venv/bin/activate
+           pip install tox
+
+      # run tests!
+      - run:
           name: run tests
           command: |
             tox
 
+
       - save_cache:
           paths:
+            - ./venv
             - ./.tox
           key: v1-dependencies-{{ checksum "test-requirements.txt" }}
 
