@@ -3,6 +3,8 @@
 # Check https://circleci.com/docs/2.0/language-python/ for more details
 #
 version: 2
+orbs:
+  codecov: codecov/codecov
 jobs:
   build:
     docker:
@@ -40,7 +42,9 @@ jobs:
           name: run tests
           command: |
             tox
-
+    
+      - codecov/upload:
+          file: {{ coverage.xml }}
 
       - save_cache:
           paths:
