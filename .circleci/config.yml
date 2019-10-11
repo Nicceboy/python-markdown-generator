@@ -35,11 +35,6 @@ jobs:
            pip install tox
            echo "source venv/bin/activate" >> $BASH_ENV
 
-      - save_cache:
-          paths:
-            - ./venv
-          key: v1-dependencies-{{ "tox"}}
-
       # run tests!
       - run:
           name: run tests
