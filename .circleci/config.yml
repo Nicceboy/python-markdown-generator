@@ -49,5 +49,5 @@ jobs:
           key: v1-dependencies-{{ checksum "test-requirements.txt" }}
 
       - store_artifacts:
-          path: test-reports
+          path: .coverage
           destination: test-reports
