@@ -33,6 +33,7 @@ jobs:
            python3 -m venv venv
            . venv/bin/activate
            pip install tox
+           echo "source venv/bin/activate" >> $BASH_ENV
 
       - save_cache:
           paths:
