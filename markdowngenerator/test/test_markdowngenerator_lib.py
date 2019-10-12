@@ -3,7 +3,7 @@ from . import BaseTestCase
 from os import linesep
 
 
-class TestMarkdownGenetarorLib(BaseTestCase):
+class TestMarkdownGeneratorLib(BaseTestCase):
     def test_header_generation(self):
         # Disable TOC
         self.test_document.enable_TOC = False

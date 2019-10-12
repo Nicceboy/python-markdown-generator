@@ -43,7 +43,7 @@ class BaseTestCase(unittest.TestCase):
 
     def _pre_setup(self):
         """
-        Generate libary instance and file creation.
+        Generate library instance and file creation.
         Doing this manually, since library is designed to be used
         with 'with' statement to handle all automatically.
         """
@@ -109,8 +109,11 @@ class BaseTestCase(unittest.TestCase):
         Method for getting test case function expected values
         and test case function name.
 
-        Additionally using attribite 'test_if_UNEQUAL' for reverse testcase:
+        Additionally using attribute 'test_if_UNEQUAL' for reverse testcase:
         expecting that specific lines are not matching.
+        :param func_name: Name of the testcase function
+        :param test_if_UNEQUAL: Paramater to define if tested for inequality, defaults to 'False'
+        :param unequal_lines: List of lines from the input, which should be unequal. 
         """
         self.expected_output.value = "".join(args)
         self.expected_output.func_name = func_name.upper() if func_name else "Unknown?"

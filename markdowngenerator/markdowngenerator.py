@@ -28,8 +28,8 @@ from .config.conf import (
 
 
 class MarkdownGenerator:
+    """Class for generating GitLab or GitHub flavored Markdown."""
     """
-    Class for generating GitLab or GitHub flavored Markdown.
     Instance of this class or any subclass is excepted to initialize
     by using 'with' statement in most cases.
 
