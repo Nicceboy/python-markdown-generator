@@ -1,7 +1,7 @@
 import unittest
 import os
 import sys
-import logging
+import logging 
 from markdowngenerator.markdowngenerator import MarkdownGenerator
 
 from dataclasses import dataclass
@@ -10,8 +10,8 @@ from typing import List
 # from standardizer.markdown.config.conf import logger
 
 
-LOGGING_LEVEL = logging.INFO
-test_logger = logging.getLogger(__name__)
+LOGGING_LEVEL = logging.DEBUG
+test_logger = logging.getLogger("markdowngenerator.test")
 test_logger.setLevel(LOGGING_LEVEL)
 
 # Formatter of log
@@ -92,7 +92,10 @@ class BaseTestCase(unittest.TestCase):
             test_logger.debug(
                 f"\nEXPECTED LINE: {expected_line}\nGENERATED LINE: {generated_line}\n"
             )
-            if self.expected_output.if_unequal.enabled and index + 1 in self.expected_output.if_unequal.lines:
+            if (
+                self.expected_output.if_unequal.enabled
+                and index + 1 in self.expected_output.if_unequal.lines
+            ):
                 assert (
                     expected_line != generated_line
                 ), f"Expected line '{expected_line}' is match for final line '{generated_line}'"
@@ -100,10 +103,10 @@ class BaseTestCase(unittest.TestCase):
                 assert (
                     expected_line == generated_line
                 ), f"Expected line '{expected_line}' is not match for final line '{generated_line}' when it shoud not."
-        test_logger.info(f'{self.expected_output.func_name} Successful')
+        test_logger.info(f"{self.expected_output.func_name} Successful")
 
     def _insert_test_info(
-        self, *args, func_name=None, test_if_UNEQUAL=False, unequal_lines=None
+        self, expected_output, func_name=None, test_if_UNEQUAL=False, unequal_lines=None
     ):
         """
         Method for getting test case function expected values
@@ -115,7 +118,10 @@ class BaseTestCase(unittest.TestCase):
         :param test_if_UNEQUAL: Paramater to define if tested for inequality, defaults to 'False'
         :param unequal_lines: List of lines from the input, which should be unequal. 
         """
-        self.expected_output.value = "".join(args)
+
+        test_logger.debug(expected_output)
+        self.expected_output.value = "".join(expected_output)
+        test_logger.debug(f"Merged list is {self.expected_output.value}")
         self.expected_output.func_name = func_name.upper() if func_name else "Unknown?"
         self.expected_output.if_unequal.enabled = test_if_UNEQUAL
         self.expected_output.if_unequal.lines = unequal_lines

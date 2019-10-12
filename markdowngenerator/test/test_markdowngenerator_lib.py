@@ -27,17 +27,19 @@ class TestMarkdownGeneratorLib(BaseTestCase):
         line10 = self._new_line()
         line11 = f"###### My Sixth header...  {linesep}"
         self._insert_test_info(
-            line1,
-            line2,
-            line3,
-            line4,
-            line5,
-            line6,
-            line7,
-            line8,
-            line9,
-            line10,
-            line11,
+            [
+                line1,
+                line2,
+                line3,
+                line4,
+                line5,
+                line6,
+                line7,
+                line8,
+                line9,
+                line10,
+                line11,
+            ],
             func_name=self.test_header_generation.__name__,
         )
 
@@ -52,12 +54,10 @@ class TestMarkdownGeneratorLib(BaseTestCase):
         line2 = self._new_line()
         line3 = f"# Woaah, working huh??  {linesep}"
         self._insert_test_info(
-            line1,
-            line2,
-            line3,
+            [line1, line2, line3],
             func_name=self.test_header_invalid_comparisions.__name__,
             test_if_UNEQUAL=True,
-            unequal_lines=[1]
+            unequal_lines=[1],
         )
 
     def test_header_abnormal_header_level_values(self):
@@ -71,8 +71,6 @@ class TestMarkdownGeneratorLib(BaseTestCase):
         line2 = self._new_line()
         line3 = f"###### Header size should be in max size.  {linesep}"
         self._insert_test_info(
-            line1,
-            line2,
-            line3,
+            [line1, line2, line3],
             func_name=self.test_header_abnormal_header_level_values.__name__,
         )

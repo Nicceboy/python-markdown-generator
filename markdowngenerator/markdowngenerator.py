@@ -29,6 +29,7 @@ from .config.conf import (
 
 class MarkdownGenerator:
     """Class for generating GitLab or GitHub flavored Markdown."""
+
     """
     Instance of this class or any subclass is excepted to initialize
     by using 'with' statement in most cases.
@@ -61,10 +62,14 @@ class MarkdownGenerator:
         GitLab allows following HTML tags as well:
         https://www.rubydoc.info/gems/html-pipeline/1.11.0/HTML/Pipeline/SanitizationFilter#WHITELIST-constant
 
-        :param document: existing opened document file
-        :param filename: File to be opened
-        :param description: Description of generated document
-        :param syntax: Markdown syntax flavor (GitHub vs GitLab) NOTE: NOT IN USE
+        :param document: existing opened document file, defaults to None
+        :param filename: File to be opened, defaults to None
+        :param description: Description of generated document, defaults to None
+        :param syntax: Markdown syntax flavor (GitHub vs GitLab) NOTE: NOT IN USE, defaults to None
+        :param root_object: Whether the instance of this class is root object, defaults to None
+        :param tmp_dir: Path of temporal directory. NOTE: not in user, defaults to None
+        :param pending_footnote_references, defaults to None
+        :param footnote_index
         """
 
         self.logger = logger if logger else logging.getLogger()
@@ -338,27 +343,36 @@ class MarkdownGenerator:
     Emphasis, aka italics, bold or strikethrough.
     """
 
-    def addBoldedText(self, text: str):
+    def addBoldedText(self, text: str, write_as_line=False):
         """
         Method for bolding text
         See: https://docs.gitlab.com/ee/user/markdown.html#emphasis
         Removes leading and trailing whitespaces.
 
         :param text: Input text to be bolded.
+        :param write_as_line: Whether the text should be written to document/buffer directly
         :return: Bolded text
         """
-        return f"**{text.strip()}**"
+        bolded = f"**{text.strip()}**"
+        if write_as_line:
+            self.writeTextLine(bolded)
+        return bolded
 
-    def addItalicizedText(self, text: str):
+    def addItalicizedText(self, text: str, write_as_line=False):
         """
         Method for italicizing text
         See: https://docs.gitlab.com/ee/user/markdown.html#emphasis
         Removes leading and trailing whitespaces.
 
         :param text: Input text to be italicized
+        :param write_as_line: Whether the text should be written to document/buffer directly
         :return: Italicized text
         """
-        return f"*{text.strip()}* "
+        italicized = f"*{text.strip()}*"
+        if write_as_line:
+            self.writeTextLine(italicized)
+        return italicized
+
 
     def addBoldedAndItalicizedText(self, text: str):
         """
