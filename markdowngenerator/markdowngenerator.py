@@ -232,7 +232,7 @@ class MarkdownGenerator:
             self.document = open(self.file, "w")
             self.document.writelines(self.document_data_array)
 
-    def writeText(self, text, html_escape=True):
+    def writeText(self, text, html_escape: bool = True):
         """
         Method for writing arbitrary text into the document file,
         or just adding data into document data structure for easier manipulation.
@@ -251,7 +251,7 @@ class MarkdownGenerator:
         if self.enable_write:
             self.document.write(str(text))
 
-    def writeTextLine(self, text=None, html_escape=True):
+    def writeTextLine(self, text=None, html_escape: bool = True):
         """
         Write arbitrary text into the document file and add new line,
         or just adding data with new line into document data structure for easier manipulation.
@@ -295,7 +295,7 @@ class MarkdownGenerator:
             self.logger.error("Not valid key value pair, when writing padded line.")
             return
 
-    def addHeader(self, level:int, text):
+    def addHeader(self, level: int, text):
         """
         Method for adding named headers for the document.
         See: https://docs.gitlab.com/ee/user/markdown.html#headers
@@ -344,7 +344,7 @@ class MarkdownGenerator:
     Emphasis, aka italics, bold or strikethrough.
     """
 
-    def addBoldedText(self, text: str, write_as_line: bool =False):
+    def addBoldedText(self, text: str, write_as_line: bool = False):
         """
         Method for bolding text
         See: https://docs.gitlab.com/ee/user/markdown.html#emphasis
@@ -360,7 +360,7 @@ class MarkdownGenerator:
             self.writeTextLine(bolded)
         return bolded
 
-    def addItalicizedText(self, text, write_as_line: bool =False):
+    def addItalicizedText(self, text, write_as_line: bool = False):
         """
         Method for italicizing text
         See: https://docs.gitlab.com/ee/user/markdown.html#emphasis
@@ -376,7 +376,6 @@ class MarkdownGenerator:
             self.writeTextLine(italicized)
         return italicized
 
-
     def addBoldedAndItalicizedText(self, text, write_as_line: bool = False):
         """
         Method for bolding and italicing text
@@ -390,7 +389,7 @@ class MarkdownGenerator:
         """
         bolded_italicized = f"***{text.strip()}***"
         if write_as_line:
-            self.writeTextLine(bolded_italicized)       
+            self.writeTextLine(bolded_italicized)
         return bolded_italicized
 
     def addStrikethroughText(self, text, write_as_line: bool = False):
@@ -406,14 +405,13 @@ class MarkdownGenerator:
         :return: Strikethourghed text
         :rtype: String
         """
-        if self.syntax not in ["gitlab", "github]":
+        if self.syntax not in ["gitlab", "github"]:
             raise AttributeError("GitLab and GitHub Markdown syntax only.")
 
         strikethrough = f"~~{text.strip()}~~"
         if write_as_line:
-            self.writeTextLine(strikethrough)       
+            self.writeTextLine(strikethrough)
         return strikethrough
-
 
     def addUnorderedList(self, iterableStringList):
         """

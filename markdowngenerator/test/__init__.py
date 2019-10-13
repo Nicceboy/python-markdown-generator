@@ -48,7 +48,7 @@ class BaseTestCase(unittest.TestCase):
         with 'with' statement to handle all automatically.
         """
         self.test_document = MarkdownGenerator(
-            filename=test_filename, root_object=True, enable_write=False, syntax=gitlab
+            filename=test_filename, root_object=True, enable_write=False, syntax="gitlab"
         )
         self.test_document.__enter__()
 
