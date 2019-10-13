@@ -2,7 +2,7 @@
 
 Python library for creating HTML sanitised Markdown documents.
 
-It aims to bring modular approach for dynamically building pure (with some exceptions) Markdown documents with pure Python, with such a way, that they could consist multiple reusable components and with some automated tasks such as generation of table of contents.
+It aims to bring modular approach for dynamically building pure (with some exceptions) Markdown documents with pure Python, with such a way, that they could consist multiple reusable components and with including some automated tasks such as generation of table of contents.
 
 [![CircleCI](https://img.shields.io/circleci/build/github/Nicceboy/python-markdown-generator?label=CircleCI&logo=circleci)](https://circleci.com/gh/Nicceboy/python-markdown-generator)
 [![codecov](https://codecov.io/gh/Nicceboy/python-markdown-generator/branch/master/graph/badge.svg)](https://codecov.io/gh/Nicceboy/python-markdown-generator)
