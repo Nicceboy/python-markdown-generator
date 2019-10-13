@@ -297,6 +297,8 @@ class MarkdownGenerator:
 
     def addHeader(self, level: int, text):
         """
+        Standard Markdown
+
         Method for adding named headers for the document.
         See: https://docs.gitlab.com/ee/user/markdown.html#headers
 
@@ -346,6 +348,8 @@ class MarkdownGenerator:
 
     def addBoldedText(self, text: str, write_as_line: bool = False):
         """
+        Standard Markdown
+
         Method for bolding text
         See: https://docs.gitlab.com/ee/user/markdown.html#emphasis
         Removes leading and trailing whitespaces.
@@ -362,6 +366,8 @@ class MarkdownGenerator:
 
     def addItalicizedText(self, text, write_as_line: bool = False):
         """
+        Standard Markdown
+
         Method for italicizing text
         See: https://docs.gitlab.com/ee/user/markdown.html#emphasis
         Removes leading and trailing whitespaces.
@@ -378,6 +384,8 @@ class MarkdownGenerator:
 
     def addBoldedAndItalicizedText(self, text, write_as_line: bool = False):
         """
+        Standard Markdown
+
         Method for bolding and italicing text
         See: https://docs.gitlab.com/ee/user/markdown.html#emphasis
         Removes leading and trailing whitespaces.
@@ -415,6 +423,8 @@ class MarkdownGenerator:
 
     def addUnorderedList(self, iterableStringList):
         """
+        Standard Markdown
+
         Method from constructing unordered list. Takes list of
         strings as argument. Each item from list going for own line.
 
@@ -436,10 +446,28 @@ class MarkdownGenerator:
         :param text: URL of the wanted destination
         :param title: Title for URL. Tooltip on hover
         :return: formated markdown reprenstation text
+        :rtype: String
         """
         if title:
             return f'[{text}]({url} "{title}")'
         return f"[{text}]({url})"
+
+
+    def generateImageHrefNotation(self, image_uri:str, alt_text, title=None, ):
+        """
+        Standard Markdown
+
+        :param image_path: Path or URL into the image
+        :param alt_text: Text which appears if image not loaded
+        :param title: Title for the image
+        :return: Formatted presentation of image in Markdown
+        :rtype: String
+        """
+
+        if title:
+            return f'![{alt_text}]({image_uri} "{title}")'
+        return f"![{alt_text}]({image_uri})"
+
 
     def addHorizontalRule(self):
         """
