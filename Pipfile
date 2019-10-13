@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 flake8 = "*"
 black = "*"
+tox = "*"
 
 [requires]
 python_version = "3.7"

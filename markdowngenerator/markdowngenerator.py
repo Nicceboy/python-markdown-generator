@@ -295,10 +295,11 @@ class MarkdownGenerator:
             self.logger.error("Not valid key value pair, when writing padded line.")
             return
 
-    def addHeader(self, level, text):
+    def addHeader(self, level:int, text):
         """
-        Method for adding named headers for document.
+        Method for adding named headers for the document.
         See: https://docs.gitlab.com/ee/user/markdown.html#headers
+
 
         :param level: The level of header, from 1 to 6
         :param text: The text for header
@@ -343,30 +344,32 @@ class MarkdownGenerator:
     Emphasis, aka italics, bold or strikethrough.
     """
 
-    def addBoldedText(self, text: str, write_as_line=False):
+    def addBoldedText(self, text: str, write_as_line: bool =False):
         """
         Method for bolding text
         See: https://docs.gitlab.com/ee/user/markdown.html#emphasis
         Removes leading and trailing whitespaces.
 
         :param text: Input text to be bolded.
-        :param write_as_line: Whether the text should be written to document/buffer directly
-        :return: Bolded text
+        :param write_as_line: bool, Whether the text should be written to document/buffer directly
+        :return: str, Bolded text
+        :rtype: String
         """
         bolded = f"**{text.strip()}**"
         if write_as_line:
             self.writeTextLine(bolded)
         return bolded
 
-    def addItalicizedText(self, text: str, write_as_line=False):
+    def addItalicizedText(self, text, write_as_line: bool =False):
         """
         Method for italicizing text
         See: https://docs.gitlab.com/ee/user/markdown.html#emphasis
         Removes leading and trailing whitespaces.
 
         :param text: Input text to be italicized
-        :param write_as_line: Whether the text should be written to document/buffer directly
+        :param write_as_line: bool, Whether the text should be written to document/buffer directly
         :return: Italicized text
+        :rtype: String
         """
         italicized = f"*{text.strip()}*"
         if write_as_line:
@@ -374,26 +377,37 @@ class MarkdownGenerator:
         return italicized
 
 
-    def addBoldedAndItalicizedText(self, text: str):
+    def addBoldedAndItalicizedText(self, text, write_as_line: bool = False):
         """
         Method for bolding and italicing text
         See: https://docs.gitlab.com/ee/user/markdown.html#emphasis
         Removes leading and trailing whitespaces.
 
         :param text: Input text to be italicized and boldgin.
+        :param write_as_line: bool, Whether the text should be written to document/buffer directly
         :return: Bolded text
+        :rtype: String
         """
-        return f"***{text.strip()}*** "
+        bolded_italicized = f"***{text.strip()}***"
+        if write_as_line:
+            self.writeTextLine(bolded_italicized)       
+        return bolded_italicized
 
-    def addStrikethourghText(self, text):
+    def addStrikethroughText(self, text, write_as_line: bool = False):
         """
-        Method for getting text strikethourghed
+        Method for getting text strikethroughed
         Removes leading and trailing whitespaces.
 
         :param text: Text to be converted
         :return: Strikethourghed text
+        :rtype: String
         """
-        return f"~~{text.strip()}~~"
+
+        strikethrough = f"~~{text.strip()}~~"
+        if write_as_line:
+            self.writeTextLine(strikethrough)       
+        return strikethrough
+
 
     def addUnorderedList(self, iterableStringList):
         """

@@ -44,5 +44,28 @@ class TestMarkdownEmphasis(BaseTestCase):
             f"*Complicated italicizing...*  {linesep}",
         ]
         self._insert_test_info(
-            validationlines, func_name=self.test_bolded_text.__name__
+            validationlines, func_name=self.test_italicized_text.__name__
+        )
+
+    def test_strikethrough_text(self):
+
+        self.test_document.enable_TOC = False
+        self.test_document.addStrikethroughText(
+            "Is this strikethroughed?", write_as_line=True
+        )
+        self.test_document.writeTextLine("This is not strikethroughed.")
+        self.test_document.addStrikethroughText("But this is.", write_as_line=True)
+
+        # Test return value
+        self.test_document.writeTextLine(
+            self.test_document.addStrikethroughText("Complicated strikethroughing...")
+        )
+        validationlines = [
+            f"~~Is this strikethroughed?~~  {linesep}",
+            f"This is not strikethroughed.  {linesep}",
+            f"~~But this is.~~  {linesep}",
+            f"~~Complicated strikethroughing...~~  {linesep}",
+        ]
+        self._insert_test_info(
+            validationlines, func_name=self.test_strikethrough_text.__name__
         )
