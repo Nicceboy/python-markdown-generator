@@ -49,7 +49,6 @@ class BaseTestCase(unittest.TestCase):
         """
         self.test_document = MarkdownGenerator(
             filename=test_filename,
-            root_object=True,
             enable_write=False,
             syntax="gitlab",
         )

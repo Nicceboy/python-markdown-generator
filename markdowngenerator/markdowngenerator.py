@@ -45,7 +45,7 @@ class MarkdownGenerator:
         filename=None,
         description=None,
         syntax=None,
-        root_object=False,
+        root_object=True,
         tmp_dir=None,
         pending_footnote_references=None,
         footnote_index=None,
@@ -346,7 +346,7 @@ class MarkdownGenerator:
     Emphasis, aka italics, bold or strikethrough.
     """
 
-    def addBoldedText(self, text: str, write_as_line: bool = False):
+    def addBoldedText(self, text: str, write_as_line: bool = False) -> str:
         """
         Standard Markdown
 
@@ -357,14 +357,14 @@ class MarkdownGenerator:
         :param text: Input text to be bolded.
         :param write_as_line: bool, Whether the text should be written to document/buffer directly
         :return: str, Bolded text
-        :rtype: String
+        :rtype: string
         """
         bolded = f"**{text.strip()}**"
         if write_as_line:
             self.writeTextLine(bolded)
         return bolded
 
-    def addItalicizedText(self, text, write_as_line: bool = False):
+    def addItalicizedText(self, text, write_as_line: bool = False) -> str:
         """
         Standard Markdown
 
@@ -375,14 +375,14 @@ class MarkdownGenerator:
         :param text: Input text to be italicized
         :param write_as_line: bool, Whether the text should be written to document/buffer directly
         :return: Italicized text
-        :rtype: String
+        :rtype: string
         """
         italicized = f"*{text.strip()}*"
         if write_as_line:
             self.writeTextLine(italicized)
         return italicized
 
-    def addBoldedAndItalicizedText(self, text, write_as_line: bool = False):
+    def addBoldedAndItalicizedText(self, text, write_as_line: bool = False) -> str:
         """
         Standard Markdown
 
@@ -393,14 +393,14 @@ class MarkdownGenerator:
         :param text: Input text to be italicized and boldgin.
         :param write_as_line: bool, Whether the text should be written to document/buffer directly
         :return: Bolded text
-        :rtype: String
+        :rtype: string
         """
         bolded_italicized = f"***{text.strip()}***"
         if write_as_line:
             self.writeTextLine(bolded_italicized)
         return bolded_italicized
 
-    def addStrikethroughText(self, text, write_as_line: bool = False):
+    def addStrikethroughText(self, text, write_as_line: bool = False) -> str:
         """
         NOTE: Non-standard Markdown
 
@@ -411,7 +411,7 @@ class MarkdownGenerator:
         :param text: Text to be converted
         :param write_as_line: bool, Whether the text should be written to document/buffer directly
         :return: Strikethourghed text
-        :rtype: String
+        :rtype: string
         """
         if self.syntax not in ["gitlab", "github"]:
             raise AttributeError("GitLab and GitHub Markdown syntax only.")
@@ -421,21 +421,7 @@ class MarkdownGenerator:
             self.writeTextLine(strikethrough)
         return strikethrough
 
-    def addUnorderedList(self, iterableStringList):
-        """
-        Standard Markdown
-
-        Method from constructing unordered list. Takes list of
-        strings as argument. Each item from list going for own line.
-
-        :param iterableStringList: List of strings. Each string
-        as item in Markdown list
-        """
-        for item in iterableStringList:
-            self.writeText(f"  * {item}{linesep}")
-        self.writeTextLine()
-
-    def generateHrefNotation(self, text, url, title=None):
+    def generateHrefNotation(self, text, url, title=None) -> str:
         """
         Standard Markdown
 
@@ -446,13 +432,13 @@ class MarkdownGenerator:
         :param text: URL of the wanted destination
         :param title: Title for URL. Tooltip on hover
         :return: formated markdown reprenstation text
-        :rtype: String
+        :rtype: string
         """
         if title:
             return f'[{text}]({url} "{title}")'
         return f"[{text}]({url})"
 
-    def generateImageHrefNotation(self, image_uri: str, alt_text, title=None):
+    def generateImageHrefNotation(self, image_uri: str, alt_text, title=None) -> str:
         """
         Standard Markdown
 
@@ -465,7 +451,7 @@ class MarkdownGenerator:
         :param alt_text: Text which appears if image not loaded
         :param title: Title for the image
         :return: Formatted presentation of image in Markdown
-        :rtype: String
+        :rtype: string
         """
 
         if title:
@@ -481,7 +467,7 @@ class MarkdownGenerator:
         """
         self.writeTextLine(f"{linesep}{HORIZONTAL_RULE}{linesep}")
 
-    def addCodeBlock(self, text, syntax: str = None, escape_html:bool=True):
+    def addCodeBlock(self, text, syntax: str = None, escape_html: bool = False):
         """
         Standard Markdown
 
@@ -493,7 +479,7 @@ class MarkdownGenerator:
         :param escape_html: bool, Wheather the input is html escaped or not
         """
 
-        # Escape backtics or grave accents in attempt to deny codeblock escape
+        # Escape backtics/grave accents in attempt to deny codeblock escape
         grave_accent_escape = "\`"
 
         text = text.replace("`", grave_accent_escape)
@@ -508,7 +494,7 @@ class MarkdownGenerator:
                 html_escape=False,
             )
 
-    def addInlineCodeBlock(self, text, escape_html=True, write=False):
+    def addInlineCodeBlock(self, text, escape_html: bool = False, write: bool = False):
         """
         Standard Markdown
 
@@ -518,7 +504,8 @@ class MarkdownGenerator:
         :param text: Actual content/code into code block
         :param escape_html: Wheather the input is html escaped or not. Default is True
         :param write: Wheather the output is written immediately or returned. 
-
+        :return: If write is false, generated InlineCodeBlock is returned
+        :rtype: string
         By default constructed output is returned only.
         """
 
@@ -562,6 +549,21 @@ class MarkdownGenerator:
             f"{MULTILINE_BLOCKQUOTE}{linesep}{escape(text.strip())}{linesep}{MULTILINE_BLOCKQUOTE}",
             html_escape=False,
         )
+
+
+    def addUnorderedList(self, iterableStringList):
+        """
+        Standard Markdown
+
+        Method from constructing unordered list. Takes list of
+        strings as argument. Each item from list going for own line.
+
+        :param iterableStringList: List of strings. Each string
+        as item in Markdown list
+        """
+        for item in iterableStringList:
+            self.writeText(f"  * {item}{linesep}")
+        self.writeTextLine()
 
     def addTable(
         self,
