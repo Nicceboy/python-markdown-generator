@@ -452,8 +452,7 @@ class MarkdownGenerator:
             return f'[{text}]({url} "{title}")'
         return f"[{text}]({url})"
 
-
-    def generateImageHrefNotation(self, image_uri:str, alt_text, title=None, ):
+    def generateImageHrefNotation(self, image_uri: str, alt_text, title=None):
         """
         Standard Markdown
 
@@ -473,7 +472,6 @@ class MarkdownGenerator:
             return f'![{alt_text}]({image_uri} "{title}")'
         return f"![{alt_text}]({image_uri})"
 
-
     def addHorizontalRule(self):
         """
         Standard Markdown
@@ -483,19 +481,23 @@ class MarkdownGenerator:
         """
         self.writeTextLine(f"{linesep}{HORIZONTAL_RULE}{linesep}")
 
-    def addCodeBlock(self, text, syntax=None, escape_html=True):
+    def addCodeBlock(self, text, syntax: str = None, escape_html:bool=True):
         """
         Standard Markdown
-
-        TODO: Not safe if input contains characters for escaping code block
 
         Method for inserting highlighted code block into the Markdown file
         See: https://docs.gitlab.com/ee/user/markdown.html#code-and-syntax-highlighting
 
         :param text: Actual content/code into code block
-        :param syntax: Syntax highlight type for code block
-        :param escape_html: Wheather the input is html escaped or not
+        :param syntax: string, Syntax highlight type for code block
+        :param escape_html: bool, Wheather the input is html escaped or not
         """
+
+        # Escape backtics or grave accents in attempt to deny codeblock escape
+        grave_accent_escape = "\`"
+
+        text = text.replace("`", grave_accent_escape)
+
         if escape_html:
             self.writeTextLine(
                 f"{CODE_BLOCK}{syntax}{linesep}{text}{linesep}{CODE_BLOCK}"
