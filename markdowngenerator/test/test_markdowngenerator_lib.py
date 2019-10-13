@@ -1,7 +1,7 @@
 # import logging
 from . import BaseTestCase
 from os import linesep
-
+from ..config.syntax import MARKDOWN_HORIZONTAL_RULE
 
 class TestMarkdownGeneratorLib(BaseTestCase):
     def test_header_generation(self):
@@ -74,3 +74,24 @@ class TestMarkdownGeneratorLib(BaseTestCase):
             [line1, line2, line3],
             func_name=self.test_header_abnormal_header_level_values.__name__,
         )
+
+    def test_horizontal_rule(self):
+
+        self.test_document.enable_TOC = False
+        self.test_document.writeTextLine("This is some text.")
+        self.test_document.addHorizontalRule()
+        self.test_document.writeTextLine("This is MORE text.")
+        self.test_document.addHorizontalRule()
+        
+        validationlines = [
+            f"This is some text.  {linesep}",
+            f"{linesep}---{linesep}  {linesep}",
+            f"This is MORE text.  {linesep}",
+            f"{linesep}---{linesep}  {linesep}"
+
+        ]
+        self._insert_test_info(
+            validationlines,
+            func_name=self.test_horizontal_rule.__name__,
+        )
+

@@ -240,7 +240,7 @@ class MarkdownGenerator:
         Text input has been escaped by default from HTML characters which could mess up the document..
 
         :param text: Input text string
-        :param html_escape: Whether the input should be escaped or not
+        :param html_escape: bool,  Whether the input should be escaped or not
         """
         if html_escape:
             self.document_data_array.append(escape(str(text)))
@@ -263,7 +263,7 @@ class MarkdownGenerator:
         Text input has been escaped by default from HTML characters which could mess up the document..
 
         :param text: Input text string
-        :param html_escape: Whether the input should be escaped or not
+        :param html_escape: bool, Whether the input should be escaped or not
         """
         if text is None:
             # Just forcing new line, in Markdown there should be 2 or more spaces as well
@@ -457,6 +457,11 @@ class MarkdownGenerator:
         """
         Standard Markdown
 
+        Method for showing image in Markdown.
+
+        GitLab supports videos and audio as well, and is able to play video, if extension is valid as
+        described in here: https://docs.gitlab.com/ee/user/markdown.html#videos
+
         :param image_path: Path or URL into the image
         :param alt_text: Text which appears if image not loaded
         :param title: Title for the image
@@ -473,7 +478,7 @@ class MarkdownGenerator:
         """
         Standard Markdown
 
-        Method for appending Horizontal Rule in the end of file:
+        Method for appending Horizontal Rule:
         See: https://docs.gitlab.com/ee/user/markdown.html#horizontal-rule
         """
         self.writeTextLine(f"{linesep}{HORIZONTAL_RULE}{linesep}")
