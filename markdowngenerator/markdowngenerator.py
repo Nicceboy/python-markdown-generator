@@ -65,7 +65,7 @@ class MarkdownGenerator:
         :param document: existing opened document file, defaults to None
         :param filename: File to be opened, defaults to None
         :param description: Description of generated document, defaults to None
-        :param syntax: Markdown syntax flavor (GitHub vs GitLab) NOTE: NOT IN USE, defaults to None
+        :param syntax: Markdown syntax flavor (GitHub vs GitLab)
         :param root_object: Whether the instance of this class is root object, defaults to None
         :param tmp_dir: Path of temporal directory. NOTE: not in user, defaults to None
         :param pending_footnote_references, defaults to None
@@ -111,7 +111,7 @@ class MarkdownGenerator:
         else:
             self.filename = Path(filename).resolve()
             self.default_filename_on_use = False
-        self.syntax = syntax if syntax else "GitLab"
+        self.syntax = syntax if syntax else "gitlab"
 
         # Index for amount of footnotes and list of actual notes
         # to be written into the end of file
@@ -395,13 +395,19 @@ class MarkdownGenerator:
 
     def addStrikethroughText(self, text, write_as_line: bool = False):
         """
+        NOTE: Non-standard Markdown
+
         Method for getting text strikethroughed
+        See: https://docs.gitlab.com/ee/user/markdown.html#emphasis
         Removes leading and trailing whitespaces.
 
         :param text: Text to be converted
+        :param write_as_line: bool, Whether the text should be written to document/buffer directly
         :return: Strikethourghed text
         :rtype: String
         """
+        if self.syntax not in ["gitlab", "github]":
+            raise AttributeError("GitLab and GitHub Markdown syntax only.")
 
         strikethrough = f"~~{text.strip()}~~"
         if write_as_line:
