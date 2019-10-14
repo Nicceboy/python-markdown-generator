@@ -1,8 +1,8 @@
 # Python Markdown Generator
 
-Python library for creating HTML sanitised Markdown documents.
+Python library for generating HTML sanitised Markdown documents.
 
-It aims to bring modular approach for dynamically building pure (with some exceptions) Markdown documents with pure Python, with such a way, that they could consist multiple reusable components and with including some automated tasks such as generation of table of contents.
+It aims to bring modular approach for dynamically building pure (with some exceptions) Markdown documents with pure Python, with such a way, that they could consist multiple reusable components and with including some automated tasks such as creation  of table of contents.
 
 [![CircleCI](https://img.shields.io/circleci/build/github/Nicceboy/python-markdown-generator?label=CircleCI&logo=circleci)](https://circleci.com/gh/Nicceboy/python-markdown-generator)
 [![codecov](https://codecov.io/gh/Nicceboy/python-markdown-generator/branch/master/graph/badge.svg)](https://codecov.io/gh/Nicceboy/python-markdown-generator)
@@ -30,7 +30,7 @@ At the time of starting of making this library, no complete existing similar lib
 
 Python 3.7+ is required.
 
-You can install latest version from the Git by using pip:
+You can install latest version from the GitHub by using pip:
 ```shell
 pip3 install git+https://github.com/Nicceboy/python-markdown-generator
 ```

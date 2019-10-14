@@ -67,3 +67,13 @@ class TestMarkdownBlocksAndQuotes(BaseTestCase):
         ]
 
         self._insert_test_info(validationlines, func_name=self.test_inline_code_block.__name__)
+
+
+    def test_single_line_blockquote(self):
+        self.test_document.enable_TOC = False
+        self.test_document.addSinglelineBlockQuote("What's up there? Just single block quoting.")
+        validationlines = [
+            f">What&#x27;s up there? Just single block quoting.  {linesep}"
+                ]
+        self._insert_test_info(validationlines, func_name=self.test_single_line_blockquote.__name__)
+
