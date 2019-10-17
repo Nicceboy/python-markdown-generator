@@ -49,6 +49,9 @@ from markdowngenerator import MarkdownGenerator
 
 def main():
     with MarkdownGenerator(
+        # By setting enable_write as False, content of the file is written
+        # into buffer at first, instead of writing directly into the file
+        # This enables for example the generation of table of contents
         filename="example.md", enable_write=False
     ) as doc:
         doc.addHeader(1, "Hello there!")
