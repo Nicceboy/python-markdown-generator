@@ -35,6 +35,61 @@ You can install latest version from the GitHub by using pip:
 pip3 install git+https://github.com/Nicceboy/python-markdown-generator
 ```
 
+## Quick usage
+
+After installing, library can be just imported and we are ready to rock.
+Method names should be self descriptive.
+
+Library is supporting currently all the syntax from the standard Markdown, and some partial functionality of GitHub and GitLab syntax.
+
+:TODO Better example, included in wiki maybe, documentation on the way for methods.
+
+```python
+from markdowngenerator import MarkdownGenerator
+
+def main():
+    with MarkdownGenerator(
+        filename="example.md", enable_write=False
+    ) as doc:
+        doc.addHeader(1, "Hello there!")
+        doc.writeTextLine(f'{doc.addBoldedText("This is just a test.")}')
+        doc.addHeader(2, "Second level header.")
+        table = [
+            {"Column1": "col1row1 data", "Column2": "col2row1 data"},
+            {"Column1": "col1row2 data", "Column2": "col2row2 data"},
+        ]
+
+        doc.addTable(dictionary_list=table)
+        doc.writeTextLine("Ending the document....")
+
+if __name__ == "__main__":
+    main()
+```
+
+Which should generate following output:
+
+```
+# Hello there!  
+**This is just a test.**  
+  
+### Table of Contents  
+  * [Hello there!](#hello-there)
+    * [Second level header.](#second-level-header)
+  
+## Second level header.  
+  
+| Column1 | Column2 |  
+|:---:|:---:|  
+| col1row1 data | col2row1 data |  
+| col1row2 data | col2row2 data |  
+
+Ending the document....
+
+```
+
+
+
+
 ## Licence
 
 Copyright &#169; 2019 Niklas Saari
