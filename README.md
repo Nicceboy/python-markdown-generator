@@ -95,7 +95,7 @@ Ending the document....
 
 ## Licence
 
-Copyright &#169; 2020 Niklas Saari. All rights reserved.
+Copyright &#169; 2021 Niklas Saari. All rights reserved.
 
 This work is licensed under the terms of the MIT license.  
 For a copy, see <https://opensource.org/licenses/MIT>.
