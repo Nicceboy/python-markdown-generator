@@ -93,7 +93,7 @@ Ending the document....
 
 
 
-## Licence
+## License
 
 Copyright &#169; 2021 Niklas Saari. All rights reserved.
 
