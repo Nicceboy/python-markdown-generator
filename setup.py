@@ -7,6 +7,6 @@ setup(name='markdowngenerator',
       url='https://github.com/Nicceboy/python-markdown-generator',
       author='Niklas Saari',
       author_email='niklas.saari@oulu.fi',
-      license='Apache-2.0',
+      license='MIT',
       packages=['markdowngenerator', 'markdowngenerator.config'],
       zip_safe=False)
