@@ -71,7 +71,6 @@ class MarkdownGenerator:
         :param pending_footnote_references, defaults to None
         :param footnote_index
         """
-
         self.logger = logger if logger else logging.getLogger()
         self.logger.name = __name__
         self.logger.debug("Filename in constructor is {}".format(filename))
@@ -166,8 +165,10 @@ class MarkdownGenerator:
 
         """
         self.genFootNotes()
-        if self.enable_TOC:
+        if self.enable_TOC and not self.enable_write:
             self.genTableOfContent()
+        else:
+            self.logger.warning("Warning: ToC is not enabled when the file is dynamically written.")
         # Everything will be written at once into the file
         if not self.enable_write:
             self.document.writelines(self.document_data_array)
@@ -192,7 +193,7 @@ class MarkdownGenerator:
         """
         tableofcontents = []  # test_logger.debug(f"Expected: '{expected_output}'")
         # test_logger.debug(f"Generated '{generated_output}'")
-        tableofcontents.append(f"### Table of Contents  {linesep}")
+        tableofcontents.append(f"## Table of Contents  {linesep}")
         prevLevel = 0
         padding = "  "
         footnote = None
@@ -227,10 +228,6 @@ class MarkdownGenerator:
             + tableofcontents
             + self.document_data_array[linenumber - 1 :]
         )
-        if self.enable_write:
-            self.document.close()
-            self.document = open(self.file, "w")
-            self.document.writelines(self.document_data_array)
 
     def writeText(self, text, html_escape: bool = True):
         """

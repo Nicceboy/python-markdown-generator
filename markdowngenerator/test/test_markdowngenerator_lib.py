@@ -4,6 +4,68 @@ from os import linesep
 from ..config.syntax import MARKDOWN_HORIZONTAL_RULE
 
 class TestMarkdownGeneratorLib(BaseTestCase):
+
+    def test_write_enabled(self):
+        self.test_document.enable_TOC = True
+        self.test_document.enable_write = True 
+        # ToC should not be generated
+
+        self.test_document.addHeader(1, "My Very First HeAder")
+        self.test_document.addHeader(2, "My second header.")
+        self.test_document.addHeader(3, "My third header.")
+
+        line1 = f"# My Very First HeAder  {linesep}"
+        # All headers except first header gets trailing new line. Note two spaces
+        line2 = self._new_line()
+        line3 = f"## My second header.  {linesep}"
+        line4 = self._new_line()
+        line5 = f"### My third header.  {linesep}"
+        self._insert_test_info(
+            [
+                line1,
+                line2,
+                line3,
+                line4,
+                line5,
+            ],
+            func_name=self.test_header_generation.__name__,
+        )
+    def test_write_disabled_generate_toc(self):
+        self.test_document.enable_TOC = True
+        self.test_document.enable_write = False
+        # ToC should be generated
+
+        self.test_document.addHeader(1, "My Very First HeAder")
+        self.test_document.addHeader(2, "My second header.")
+        self.test_document.addHeader(3, "My third header.")
+
+        line1 = f"## Table of Contents  {linesep}"
+        line2 = f"  * [My Very First HeAder](#my-very-first-header){linesep}"
+        line3 = f"    * [My second header.](#my-second-header){linesep}"
+        line4 = f"      * [My third header.](#my-third-header){linesep}"
+        line5 = self._new_line()
+        line6 = f"# My Very First HeAder  {linesep}"
+        # All headers except first header gets trailing new line. Note two spaces
+        line7 = self._new_line()
+        line8 = f"## My second header.  {linesep}"
+        line9 = self._new_line()
+        line10 = f"### My third header.  {linesep}"
+        self._insert_test_info(
+            [
+                line1,
+                line2,
+                line3,
+                line4,
+                line5,
+                line6,
+                line7,
+                line8,
+                line9,
+                line10,
+            ],
+            func_name=self.test_header_generation.__name__,
+        )
+
     def test_header_generation(self):
         # Disable TOC
         self.test_document.enable_TOC = False
