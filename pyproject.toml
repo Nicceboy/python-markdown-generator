@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "python-markdown-generator"
+repository = "https://github.com/Nicceboy/python-markdown-generator"
+version = "0.1.0"
+description = "Python library for dynamically generating HTML sanitized Markdown syntax."
+authors = ["Niklas Saari <niklas.saari@tutanota.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "python_markdown_generator"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
