@@ -165,10 +165,11 @@ class MarkdownGenerator:
 
         """
         self.genFootNotes()
-        if self.enable_TOC and not self.enable_write:
-            self.genTableOfContent()
-        else:
-            self.logger.warning("Warning: ToC is not enabled when the file is dynamically written.")
+        if self.enable_TOC:
+            if not self.enable_write:
+                self.genTableOfContent()
+            else:
+                self.logger.warning("Warning: ToC is not enabled when the file is dynamically written.")
         # Everything will be written at once into the file
         if not self.enable_write:
             self.document.writelines(self.document_data_array)
