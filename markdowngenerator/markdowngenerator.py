@@ -478,7 +478,7 @@ class MarkdownGenerator:
         """
 
         # Escape backtics/grave accents in attempt to deny codeblock escape
-        grave_accent_escape = "\`"
+        grave_accent_escape = "\\`"
 
         text = text.replace("`", grave_accent_escape)
 
